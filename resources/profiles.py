@@ -47,3 +47,5 @@ class LoginUser(Resource):
             raise BadRequest("Wrong password.")
         token = jwt.encode({"sub": user.id}, key=environ.get('JWT_SECRET_KEY'))
         return {"token": token}
+
+

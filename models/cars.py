@@ -13,4 +13,12 @@ class CarModel(db.Model):
     image = db.Column(db.String(255), nullable=False)
     price = db.Column(db.Integer, nullable=False)
 
-    complainer = db.relationship("CarHubUser")
+    owner = db.relationship("CarHubUser")
+
+    def __init__(self, user_id, brand, description, year, image, price):
+        self.user_id = user_id
+        self.brand = brand
+        self.description = description
+        self.year = year
+        self.image = image
+        self.price = price
