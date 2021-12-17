@@ -1,7 +1,10 @@
+from os import environ
+import requests
+
 from flask import request
 from flask_restful import Resource
 from marshmallow import ValidationError
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import NotFound, InternalServerError
 
 from authorize import auth
 from db import db
@@ -99,3 +102,12 @@ class SearchCar(Resource):
             raise NotFound("The search didn't return any results")
         schema = GetCarSchema()
         return schema.dump(car, many=True)
+
+
+class GoogleSearch(Resource):
+    def get(self, search_by):
+        url = f'https://www.googleapis.com/customsearch/v1?key={environ.get("API_KEY")}&cx={environ.get("ENGINE_ID")}&q={search_by}'
+        resp = requests.get(url)
+        if resp.status_code == 200:
+            return {position + 1: result["link"] for position, result in enumerate(resp.json()["items"])}
+        raise InternalServerError("Search engine is unavailable at the moment.")

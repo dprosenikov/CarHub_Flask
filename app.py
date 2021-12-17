@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from db import db
-from resources.cars import AllCars, MyCars, CreateCar, CarDetails, CarEdit, CarDelete, SearchCar
+from resources.cars import AllCars, MyCars, CreateCar, CarDetails, CarEdit, CarDelete, SearchCar, GoogleSearch
 from resources.profiles import RegisterUser, LoginUser, DeleteProfile, ListAllUsers
 
 app = Flask(__name__)
@@ -30,6 +30,8 @@ api.add_resource(CarDelete, "/car/delete/<int:car_id>")
 api.add_resource(DeleteProfile, "/profile/delete/<int:profile_id>")
 api.add_resource(ListAllUsers, "/allprofiles")
 api.add_resource(SearchCar, "/search/<search_by>")
+api.add_resource(GoogleSearch, "/googlesearch/<search_by>")
+
 
 if __name__ == "__main__":
     app.run(DEBUG=True)
