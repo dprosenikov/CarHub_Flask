@@ -10,6 +10,8 @@ class CarHubUser(db.Model):
     password = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(255), default='GUEST', nullable=False)
 
+    cars = db.relationship('CarModel', backref='car_owner', cascade='delete')
+
     def __init__(self, username, email, password):
         self.username = username
         self.email = email

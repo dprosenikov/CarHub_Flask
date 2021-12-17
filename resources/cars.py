@@ -89,4 +89,13 @@ class CarDelete(Resource):
             return 'Permission denied', 403
         db.session.delete(car)
         db.session.commit()
-        return 'Deleted', 200
+        return 'Car Deleted', 200
+
+
+class SearchCar(Resource):
+    def get(self, search_by):
+        car = CarModel.query.filter(CarModel.brand.contains(search_by)).all()
+        if not car:
+            raise NotFound("The search didn't return any results")
+        schema = GetCarSchema()
+        return schema.dump(car, many=True)
