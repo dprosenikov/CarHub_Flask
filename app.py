@@ -32,6 +32,5 @@ api.add_resource(ListAllUsers, "/allprofiles")
 api.add_resource(SearchCar, "/search/<search_by>")
 api.add_resource(GoogleSearch, "/googlesearch/<search_by>")
 
-
 if __name__ == "__main__":
     app.run(DEBUG=True)
